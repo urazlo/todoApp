@@ -3,7 +3,7 @@ import React from 'react';
 class Section extends React.Component {
 
   render() {
-    const { tasks, deleteTask, markTask, markAllTasks } = this.props;
+    const { filteredTasks, deleteTask, markTask, markAllTasks } = this.props;
 
     return (
       <>
@@ -12,7 +12,7 @@ class Section extends React.Component {
           className="toggle-all"
           onChange={() => markAllTasks()}
         />
-        {tasks.map(({ id, title, isDone }, index) => (
+        {filteredTasks.map(({ id, title, isDone }, index) => (
           <div className="todo-list" key={id}>
             <input
               className="toggle"

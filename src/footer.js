@@ -3,7 +3,7 @@ import React from 'react';
 class Footer extends React.Component {
 
   render() {
-    const { deleteDoneTasks, counter } = this.props;
+    const { deleteDoneTasks, tasksFilter, counter, completedCounter } = this.props;
     let counterLabelText;
 
     if (counter === 1) {
@@ -14,20 +14,27 @@ class Footer extends React.Component {
 
     return (
       <>
-        <span className="todo-count">
+        <span className='todo-count'>
           {counterLabelText}
         </span>
-        <ul className="filters">
-          <li><a href="#/" className="selected">All</a></li>
-          <li><a href="#/active" className="">Active</a></li>
-          <li><a href="#/completed" className="">Completed</a></li>
-        </ul>
-        <button
-          className="clear-completed"
-          onClick={() => deleteDoneTasks()}
-        >
-          Clear completed [{counter}]
+        <div className='filters'>
+          <button
+            className='filters-button'
+            onClick={() => tasksFilter('isAll', true)}>All
+          </button>
+          <button
+            className='filters-button'
+            onClick={() => tasksFilter('isDone', true)}>Active
+          </button>
+          <button
+            className='filters-button'
+            onClick={() => tasksFilter('isDone', false)}>Completed
+          </button>
+          <button
+            className='filters-button'
+            onClick={() => deleteDoneTasks()}>Clear completed [{completedCounter}]
         </button>
+        </div>
       </>
     );
   }

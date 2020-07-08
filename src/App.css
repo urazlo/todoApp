@@ -93,12 +93,20 @@ button {
   color: rgb(0, 212, 250);
 }
 
-.clear-completed {
+.filters {
+  margin: 10px auto;
+  display: flex;
+  justify-content: space-around;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.filters-button {
   float: right;
   text-decoration: none;
   cursor: pointer;
 }
 
-.clear-completed:hover {
+.filters-button:hover {
   text-decoration: underline;
 }

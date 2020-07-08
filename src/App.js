@@ -4,13 +4,17 @@ import Section from './section';
 import Footer from './footer';
 import Header from './header';
 
+const storage = localStorage.getItem('storage');
+// window.location.hash = '#/';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
 
+    
     this.state = {
-      tasks: [],
-      value: ''
+      tasks: [storage],
+      value: '',
     };
   }
 
@@ -18,15 +22,16 @@ class App extends React.Component {
     const { tasks, value } = this.state;
     const id = Math.random().toString(36).substr(2, 9);
 
-    if (value) {
+    if (value.trim()) {
       const task = {
         id,
-        title: value,
+        title: value.trim(),
         isDone: false,
+        isAll: true,
       };
-
       this.setState({ tasks: [...tasks, task], value: '' });
     }
+    localStorage.setItem('storage', this.state.tasks);
   };
 
   deleteTask = (index) => {
@@ -69,6 +74,14 @@ class App extends React.Component {
     this.setState({ tasks: tasks.filter((task) => !task.isDone) });
   };
 
+  tasksFilter = (type, value) => {
+    this.setState({
+      isAll: type === 'isAll' ? true : false,
+      isDone: value
+    });
+  }
+
+
   handleChange = (e) => {
     this.setState({ value: e.target.value });
   };
@@ -78,8 +91,13 @@ class App extends React.Component {
   };
 
   render() {
-    const { value, tasks } = this.state;
-    const counter = tasks.length;
+    const { value, tasks, isAll, isDone } = this.state;
+    const filteredTasks = isAll
+      ? tasks
+      : tasks.filter((task) => task.isDone !== isDone);
+
+    const counter = filteredTasks.length;
+    const completedCounter = filteredTasks.filter((task) => task.isDone).length;
 
     return (
       <>
@@ -91,7 +109,7 @@ class App extends React.Component {
         />
         <Section
           className="main"
-          tasks={tasks}
+          filteredTasks={filteredTasks}
           deleteTask={this.deleteTask}
           markTask={this.markTask}
           markAllTasks={this.markAllTasks}
@@ -99,6 +117,8 @@ class App extends React.Component {
         <Footer
           className="footer"
           counter={counter}
+          completedCounter={completedCounter}
+          tasksFilter={this.tasksFilter}
           deleteDoneTasks={this.deleteDoneTasks}
         />
       </>
@@ -107,3 +127,11 @@ class App extends React.Component {
 }
 
 export default App;
+
+// var initial_model = {
+//   todos: [],
+//   hash: "#/"
+// }
+
+      // new_model.hash =  (window && window.location && window.location.hash) ?
+      //   window.location.hash : '#/';
