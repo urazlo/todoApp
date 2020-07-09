@@ -1,19 +1,32 @@
 import React from 'react';
 import './App.css';
-import Section from './section';
-import Footer from './footer';
-import Header from './header';
+import Section from './Section';
+import Footer from './Footer';
+import Header from './Header';
 
-const storage = localStorage.getItem('storage');
-// window.location.hash = '#/';
+const tasksStorageKey = 'tasksStorage';
+
+const tasksStorage = {
+  get: () => {
+    try {
+      return JSON.parse(localStorage.getItem(tasksStorageKey))
+    } catch (error) {
+      return [];
+    }
+
+  },
+
+  set: (task) => {
+    localStorage.setItem(tasksStorageKey, JSON.stringify(task))
+  }
+}
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    
     this.state = {
-      tasks: [storage],
+      tasks: tasksStorage.get(),
       value: '',
     };
   }
@@ -29,10 +42,9 @@ class App extends React.Component {
         isDone: false,
         isAll: true,
       };
-      this.setState({ tasks: [...tasks, task], value: '' });
+      this.setState({ tasks: [...tasks, task], value: '' }, this.updateLocalStorage);
     }
-    localStorage.setItem('storage', this.state.tasks);
-  };
+  }
 
   deleteTask = (index) => {
     const { tasks } = this.state;
@@ -40,47 +52,49 @@ class App extends React.Component {
     this.setState({ tasks: tasks });
   };
 
-  markTask = (id) => {
-    const { tasks } = this.state;
-    const newTasks = tasks.map((task) => {
+  markTask = (index) => {
+    const tasks = [...this.state.tasks];
 
-      if (id === task.id) {
-        return {
-          ...task,
-          isDone: !task.isDone,
-        };
-      }
+    tasks[index].isDone = !tasks[index].isDone;
 
-      return task;
-    });
-
-    this.setState({ tasks: newTasks });
+    this.setState({ tasks }, this.updateLocalStorage);
   };
 
   markAllTasks = () => {
     const { tasks } = this.state;
-    const newTasks = tasks.map((task) => {
+    const updatedTask = tasks.map((task) => {
       return {
         ...task,
         isDone: !task.isDone
       }
     });
-
-    this.setState({ tasks: newTasks });
+    this.setState({ tasks: updatedTask }, this.updateLocalStorage)
   }
 
   deleteDoneTasks = () => {
     const { tasks } = this.state;
-    this.setState({ tasks: tasks.filter((task) => !task.isDone) });
+    this.setState({ tasks: tasks.filter((task) => !task.isDone) }, this.updateLocalStorage);
   };
 
-  tasksFilter = (type, value) => {
+  filterTask = (type, value) => {
     this.setState({
       isAll: type === 'isAll' ? true : false,
       isDone: value
     });
   }
 
+  updateLocalStorage = () => {
+    tasksStorage.set(this.state.tasks)
+  }
+
+  editTask = (index, value) => {
+    const tasks = [...this.state.tasks];
+
+    tasks[index].title = value;
+
+    this.setState({ tasks }, this.updateLocalStorage);
+
+  };
 
   handleChange = (e) => {
     this.setState({ value: e.target.value });
@@ -109,6 +123,7 @@ class App extends React.Component {
         />
         <Section
           className="main"
+          editTask={this.editTask}
           filteredTasks={filteredTasks}
           deleteTask={this.deleteTask}
           markTask={this.markTask}
@@ -118,7 +133,7 @@ class App extends React.Component {
           className="footer"
           counter={counter}
           completedCounter={completedCounter}
-          tasksFilter={this.tasksFilter}
+          filterTask={this.filterTask}
           deleteDoneTasks={this.deleteDoneTasks}
         />
       </>
@@ -127,11 +142,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-// var initial_model = {
-//   todos: [],
-//   hash: "#/"
-// }
-
-      // new_model.hash =  (window && window.location && window.location.hash) ?
-      //   window.location.hash : '#/';

@@ -3,7 +3,7 @@ import React from 'react';
 class Footer extends React.Component {
 
   render() {
-    const { deleteDoneTasks, tasksFilter, counter, completedCounter } = this.props;
+    const { deleteDoneTasks, filterTask, counter, completedCounter } = this.props;
     let counterLabelText;
 
     if (counter === 1) {
@@ -20,15 +20,15 @@ class Footer extends React.Component {
         <div className='filters'>
           <button
             className='filters-button'
-            onClick={() => tasksFilter('isAll', true)}>All
+            onClick={() => filterTask('isAll', true)}>All
           </button>
           <button
             className='filters-button'
-            onClick={() => tasksFilter('isDone', true)}>Active
+            onClick={() => filterTask('isDone', true)}>Active
           </button>
           <button
             className='filters-button'
-            onClick={() => tasksFilter('isDone', false)}>Completed
+            onClick={() => filterTask('isDone', false)}>Completed
           </button>
           <button
             className='filters-button'
