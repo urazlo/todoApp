@@ -8,12 +8,11 @@ const tasksStorageKey = 'tasksStorage';
 
 const tasksStorage = {
   get: () => {
-    try {
-      return JSON.parse(localStorage.getItem(tasksStorageKey))
-    } catch (error) {
-      return [];
-    }
 
+    if (JSON.parse(localStorage.getItem(tasksStorageKey) !== null)) {
+      return JSON.parse(localStorage.getItem(tasksStorageKey));
+    }
+    return [];
   },
 
   set: (task) => {
@@ -105,6 +104,8 @@ class App extends React.Component {
   };
 
   render() {
+    console.log(tasksStorage.get());
+
     const { value, tasks, isAll, isDone } = this.state;
     const filteredTasks = isAll
       ? tasks
