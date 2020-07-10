@@ -8,11 +8,19 @@ const tasksStorageKey = 'tasksStorage';
 
 const tasksStorage = {
   get: () => {
+<<<<<<< HEAD
     try {
       return JSON.parse(localStorage.getItem(tasksStorageKey)) || [];
     } catch (error) {
       return [];
     }
+=======
+
+    if (JSON.parse(localStorage.getItem(tasksStorageKey) !== null)) {
+      return JSON.parse(localStorage.getItem(tasksStorageKey));
+    }
+    return [];
+>>>>>>> cb431669f20995ed2ad6deaf13deca4076ae362c
   },
 
   set: (task) => {
@@ -128,15 +136,22 @@ class App extends React.Component {
   };
 
   render() {
-    const {
-      value,
-      tasks,
-      nameFilter,
-      filter,
-      isDone,
-    } = this.state;
+// <<<<<<< HEAD
+//     const {
+//       value,
+//       tasks,
+//       nameFilter,
+//       filter,
+//       isDone,
+//     } = this.state;
 
-    const allTasks = filter === filterNames.all
+//     const allTasks = filter === filterNames.all
+// =======
+//     console.log(tasksStorage.get());
+
+//     const { value, tasks, isAll, isDone } = this.state;
+//     const filteredTasks = isAll
+// >>>>>>> cb431669f20995ed2ad6deaf13deca4076ae362c
       ? tasks
       : tasks.filter((task) => task.isDone === (filterNames.completed === filter));
 
