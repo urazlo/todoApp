@@ -8,12 +8,12 @@ const tasksStorageKey = 'tasksStorage';
 
 const tasksStorage = {
   get: () => {
+
     try {
-      return JSON.parse(localStorage.getItem(tasksStorageKey))
+      return JSON.parse(localStorage.getItem(tasksStorageKey)) || [];
     } catch (error) {
       return [];
     }
-
   },
 
   set: (task) => {
@@ -28,6 +28,7 @@ class App extends React.Component {
     this.state = {
       tasks: tasksStorage.get(),
       value: '',
+      hash: "#/"
     };
   }
 
@@ -42,6 +43,7 @@ class App extends React.Component {
         isDone: false,
         isAll: true,
       };
+
       this.setState({ tasks: [...tasks, task], value: '' }, this.updateLocalStorage);
     }
   }
@@ -49,7 +51,7 @@ class App extends React.Component {
   deleteTask = (index) => {
     const { tasks } = this.state;
     tasks.splice(index, 1);
-    this.setState({ tasks: tasks });
+    this.setState({ tasks: tasks }, this.updateLocalStorage);
   };
 
   markTask = (index) => {
@@ -62,21 +64,31 @@ class App extends React.Component {
 
   markAllTasks = () => {
     const { tasks } = this.state;
-    const updatedTask = tasks.map((task) => {
+    let clonnedTask = [];
+
+    const undoneTasks = tasks.filter((task) => {
+      return task.isDone === false;
+    }).length === 0
+      ? false
+      : true;
+
+    clonnedTask = tasks.map((task) => {
       return {
         ...task,
-        isDone: !task.isDone
+        isDone: undoneTasks
       }
     });
-    this.setState({ tasks: updatedTask }, this.updateLocalStorage)
+
+    this.setState({ tasks: clonnedTask }, this.updateLocalStorage)
   }
 
   deleteDoneTasks = () => {
     const { tasks } = this.state;
+
     this.setState({ tasks: tasks.filter((task) => !task.isDone) }, this.updateLocalStorage);
   };
 
-  filterTask = (type, value) => {
+  tasksFilter = (type, value) => {
     this.setState({
       isAll: type === 'isAll' ? true : false,
       isDone: value
@@ -106,12 +118,24 @@ class App extends React.Component {
 
   render() {
     const { value, tasks, isAll, isDone } = this.state;
-    const filteredTasks = isAll
+
+    const allTasks = isAll
       ? tasks
       : tasks.filter((task) => task.isDone !== isDone);
 
-    const counter = filteredTasks.length;
-    const completedCounter = filteredTasks.filter((task) => task.isDone).length;
+    const activeTasks = allTasks.filter((task) =>
+      task.isDone !== true);
+
+    const completedTasks = allTasks.filter((task) =>
+      task.isDone === true);
+
+    console.log('active', activeTasks.length);
+    console.log('completed', completedTasks.length);
+    console.log('all', allTasks.length);
+    console.log('-----------------');
+
+    const allTasksCounter = allTasks.length;
+    const completedTasksCounter = completedTasks.length;
 
     return (
       <>
@@ -123,18 +147,23 @@ class App extends React.Component {
         />
         <Section
           className="main"
+          isDone={isDone}
           editTask={this.editTask}
-          filteredTasks={filteredTasks}
+          allTasks={allTasks}
           deleteTask={this.deleteTask}
           markTask={this.markTask}
           markAllTasks={this.markAllTasks}
         />
         <Footer
           className="footer"
-          counter={counter}
-          completedCounter={completedCounter}
-          filterTask={this.filterTask}
+          allTasksCounter={allTasksCounter}
+          completedTasksCounter={completedTasksCounter}
+          tasksFilter={this.tasksFilter}
           deleteDoneTasks={this.deleteDoneTasks}
+          allTasks={allTasks}
+          activeTasks={activeTasks}
+          completedTasks={completedTasks}
+
         />
       </>
     );

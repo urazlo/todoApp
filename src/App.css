@@ -101,7 +101,7 @@ button {
   font-weight: normal;
 }
 
-.filters-button {
+/* .filters-button {
   float: right;
   text-decoration: none;
   cursor: pointer;
@@ -110,3 +110,7 @@ button {
 .filters-button:hover {
   text-decoration: underline;
 }
+
+.filters li a.selected {
+  border-color: rgba(175, 47, 47, 0.2);
+} */

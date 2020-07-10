@@ -6,7 +6,7 @@ class Task extends React.Component {
 
     this.state = {
       showInput: false,
-      changedTitle: props.title
+      changedTitle: props.title,
     }
   }
 
@@ -16,6 +16,9 @@ class Task extends React.Component {
 
   onToggle = () => {
     this.props.markTask(this.props.index);
+    this.setState({
+      isChecked: !this.state.isChecked,
+    });
   }
 
   doubleClickHandler = () => {
@@ -40,8 +43,6 @@ class Task extends React.Component {
 
   render() {
 
-    const { title } = this.props;
-
     return (
 
       <div
@@ -58,13 +59,14 @@ class Task extends React.Component {
         <input
           className='toggle'
           type='checkbox'
+          checked={this.props.isDone}
           onChange={this.onToggle}
         />
         <label
           onDoubleClick={this.doubleClickHandler}
           className={this.props.isDone ? 'done' : 'active'}
         >
-          {title}
+          {this.props.title}
         </label>
         <button
           onClick={this.onDelete}

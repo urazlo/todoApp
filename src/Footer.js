@@ -1,15 +1,18 @@
 import React from 'react';
+import All from './All';
+import Active from './Active';
+import Completed from './Completed';
 
 class Footer extends React.Component {
 
   render() {
-    const { deleteDoneTasks, filterTask, counter, completedCounter } = this.props;
+    const { deleteDoneTasks, allTasksCounter, completedTasksCounter, tasksFilter } = this.props;
     let counterLabelText;
 
-    if (counter === 1) {
-      counterLabelText = `${counter} item left`;
+    if (allTasksCounter === 1) {
+      counterLabelText = `${allTasksCounter} item left`;
     } else {
-      counterLabelText = `${counter} items left`
+      counterLabelText = `${allTasksCounter} items left`
     }
 
     return (
@@ -17,24 +20,21 @@ class Footer extends React.Component {
         <span className='todo-count'>
           {counterLabelText}
         </span>
-        <div className='filters'>
-          <button
+        <ul className="filters">
+          <All
             className='filters-button'
-            onClick={() => filterTask('isAll', true)}>All
-          </button>
-          <button
+            tasksFilter={tasksFilter} />
+          <Active
             className='filters-button'
-            onClick={() => filterTask('isDone', true)}>Active
-          </button>
-          <button
+            tasksFilter={tasksFilter} />
+          <Completed
             className='filters-button'
-            onClick={() => filterTask('isDone', false)}>Completed
-          </button>
-          <button
-            className='filters-button'
-            onClick={() => deleteDoneTasks()}>Clear completed [{completedCounter}]
+            tasksFilter={tasksFilter} />
+        </ul>
+        <button
+          className='filters-button'
+          onClick={() => deleteDoneTasks()}>Clear completed [{completedTasksCounter}]
         </button>
-        </div>
       </>
     );
   }
