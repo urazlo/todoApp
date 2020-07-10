@@ -6,30 +6,39 @@ import Completed from './Completed';
 class Footer extends React.Component {
 
   render() {
-    const { deleteDoneTasks, allTasksCounter, completedTasksCounter, tasksFilter } = this.props;
-    let counterLabelText;
+    const {
+      deleteDoneTasks,
+      allTasksCounter,
+      completedTasksCounter,
+      tasksFilter,
+    } = this.props;
+
+    let counterText;
 
     if (allTasksCounter === 1) {
-      counterLabelText = `${allTasksCounter} item left`;
+      counterText = `${allTasksCounter} item left`;
     } else {
-      counterLabelText = `${allTasksCounter} items left`
+      counterText = `${allTasksCounter} items left`
     }
 
     return (
       <>
         <span className='todo-count'>
-          {counterLabelText}
+          {counterText}
         </span>
         <ul className="filters">
           <All
             className='filters-button'
-            tasksFilter={tasksFilter} />
+            tasksFilter={tasksFilter}
+          />
           <Active
             className='filters-button'
-            tasksFilter={tasksFilter} />
+            tasksFilter={tasksFilter}
+          />
           <Completed
             className='filters-button'
-            tasksFilter={tasksFilter} />
+            tasksFilter={tasksFilter}
+          />
         </ul>
         <button
           className='filters-button'

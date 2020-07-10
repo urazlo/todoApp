@@ -5,7 +5,13 @@ import Checkbox from './Checkbox';
 class Section extends React.Component {
 
   render() {
-    const { allTasks, deleteTask, markTask, markAllTasks, editTask } = this.props;
+    const {
+      allTasks,
+      deleteTask,
+      markTask,
+      markAllTasks,
+      editTask,
+    } = this.props;
 
     return (
       <>

@@ -10,6 +10,7 @@ class Task extends React.Component {
     }
   }
 
+
   onDelete = () => {
     this.props.deleteTask(this.props.index);
   }

@@ -3,7 +3,11 @@ import React from 'react';
 class HeaderInput extends React.Component {
 
   render() {
-    const { value, handleChange, addTask } = this.props;
+    const {
+      value,
+      handleChange,
+      addTask
+    } = this.props;
 
     return (
       <div className="header">

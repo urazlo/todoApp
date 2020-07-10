@@ -3,7 +3,7 @@ import React from 'react';
 class Completed extends React.Component {
 
   handleClick = () => {
-    this.props.tasksFilter('isDone', false);
+    this.props.tasksFilter('completed');
   }
 
   render() {
@@ -12,7 +12,7 @@ class Completed extends React.Component {
       <li>
         <a href="#/completed" onClick={this.handleClick}>
           Completed
-     </a>
+        </a>
       </li>
     );
   }
