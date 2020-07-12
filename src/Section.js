@@ -14,7 +14,7 @@ class Section extends React.Component {
     } = this.props;
 
     return (
-      <>
+      <div className="main">
         <Checkbox
           markAllTasks={markAllTasks}
           allTasks={allTasks}
@@ -31,7 +31,7 @@ class Section extends React.Component {
             markTask={markTask}
           />
         ))}
-      </>
+      </div>
     );
   }
 }

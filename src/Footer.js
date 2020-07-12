@@ -1,11 +1,10 @@
 import React from 'react';
-import All from './All';
-import Active from './Active';
-import Completed from './Completed';
+import FilterOption from './FilterOption';
+import { filterNames } from './utils/constants'
 
 class Footer extends React.Component {
-
   render() {
+
     const {
       deleteDoneTasks,
       allTasksCounter,
@@ -13,6 +12,7 @@ class Footer extends React.Component {
       tasksFilter,
     } = this.props;
 
+   
     let counterText;
 
     if (allTasksCounter === 1) {
@@ -22,29 +22,35 @@ class Footer extends React.Component {
     }
 
     return (
-      <>
+      <div className="footer">
         <span className='todo-count'>
           {counterText}
         </span>
         <ul className="filters">
-          <All
-            className='filters-button'
+          <FilterOption
+            filterName={filterNames.all}
             tasksFilter={tasksFilter}
-          />
-          <Active
-            className='filters-button'
+          >
+            All
+          </FilterOption>
+          <FilterOption
+            filterName={filterNames.inProgress}
             tasksFilter={tasksFilter}
-          />
-          <Completed
-            className='filters-button'
+          >
+            Active
+          </FilterOption>
+          <FilterOption
+            filterName={filterNames.completed}
             tasksFilter={tasksFilter}
-          />
+          >
+            Completed
+          </FilterOption>
         </ul>
         <button
-          className='filters-button'
+          className='clear-all-button'
           onClick={() => deleteDoneTasks()}>Clear completed [{completedTasksCounter}]
         </button>
-      </>
+      </div>
     );
   }
 }

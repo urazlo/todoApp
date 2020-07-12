@@ -6,7 +6,7 @@ class Header extends React.Component {
     const { value, handleChange, handleEnter } = this.props;
 
     return (
-      <div className='todoapp'>
+      <div className='header'>
         <h1>todos</h1>
         <input
           className='new-todo'

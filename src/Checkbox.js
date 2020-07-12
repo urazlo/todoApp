@@ -16,6 +16,7 @@ class Checkbox extends React.Component {
 
     return (
       <input
+        className="toggle-all"
         type="checkbox"
         onChange={this.toggleChange}
         checked={isComplete}

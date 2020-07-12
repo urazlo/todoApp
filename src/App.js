@@ -3,36 +3,8 @@ import './App.css';
 import Section from './Section';
 import Footer from './Footer';
 import Header from './Header';
+import { tasksStorage, filterNames } from './utils/constants';
 
-const tasksStorageKey = 'tasksStorage';
-
-const tasksStorage = {
-  get: () => {
-<<<<<<< HEAD
-    try {
-      return JSON.parse(localStorage.getItem(tasksStorageKey)) || [];
-    } catch (error) {
-      return [];
-    }
-=======
-
-    if (JSON.parse(localStorage.getItem(tasksStorageKey) !== null)) {
-      return JSON.parse(localStorage.getItem(tasksStorageKey));
-    }
-    return [];
->>>>>>> cb431669f20995ed2ad6deaf13deca4076ae362c
-  },
-
-  set: (task) => {
-    localStorage.setItem(tasksStorageKey, JSON.stringify(task));
-  },
-}
-
-const filterNames = {
-  all: '#all',
-  completed: '#completed',
-  inProgress: '#active'
-};
 
 class App extends React.Component {
   constructor(props) {
@@ -136,22 +108,14 @@ class App extends React.Component {
   };
 
   render() {
-// <<<<<<< HEAD
-//     const {
-//       value,
-//       tasks,
-//       nameFilter,
-//       filter,
-//       isDone,
-//     } = this.state;
+    const {
+      value,
+      tasks,
+      nameFilter,
+      filter,
+    } = this.state;
 
-//     const allTasks = filter === filterNames.all
-// =======
-//     console.log(tasksStorage.get());
-
-//     const { value, tasks, isAll, isDone } = this.state;
-//     const filteredTasks = isAll
-// >>>>>>> cb431669f20995ed2ad6deaf13deca4076ae362c
+    const allTasks = filter === filterNames.all
       ? tasks
       : tasks.filter((task) => task.isDone === (filterNames.completed === filter));
 
@@ -164,7 +128,6 @@ class App extends React.Component {
           handleEnter={this.handleEnter}
         />
         <Section
-          className="main"
           nameFilter={nameFilter}
           editTask={this.editTask}
           allTasks={allTasks}
@@ -173,7 +136,6 @@ class App extends React.Component {
           markAllTasks={this.markAllTasks}
         />
         <Footer
-          className="footer"
           setRoute={this.setRoute}
           filterNames={filterNames}
           // allTasksCounter={allTasksCounter}

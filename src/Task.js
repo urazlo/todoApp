@@ -51,7 +51,7 @@ class Task extends React.Component {
       >
         {this.state.showInput && (
           <input
-            className='editor'
+            className='edit'
             onKeyDown={this.handleEnter}
             value={this.state.changedTitle}
             onChange={this.onEdit}
@@ -65,13 +65,13 @@ class Task extends React.Component {
         />
         <label
           onDoubleClick={this.doubleClickHandler}
-          className={this.props.isDone ? 'done' : 'active'}
+          className={this.props.isDone ? 'done-task' : ''}
         >
           {this.props.title}
         </label>
         <button
           onClick={this.onDelete}
-          className='deleteButton'
+          className='destroy'
         >
           X
         </button>
