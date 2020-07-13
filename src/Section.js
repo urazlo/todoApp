@@ -1,25 +1,18 @@
 import React from 'react';
 import Task from './Task';
-import Checkbox from './Checkbox';
 
 class Section extends React.Component {
-
   render() {
     const {
-      allTasks,
+      filtredTasks,
       deleteTask,
       markTask,
-      markAllTasks,
       editTask,
     } = this.props;
 
     return (
       <div className="main">
-        <Checkbox
-          markAllTasks={markAllTasks}
-          allTasks={allTasks}
-        />
-        {allTasks.map(({ id, title, isDone }, index) => (
+        {filtredTasks.map(({ id, title, isDone }, index) => (
           <Task
             editTask={editTask}
             key={id}

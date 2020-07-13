@@ -1,22 +1,23 @@
 import React from 'react';
+import classNames from 'classnames'
 
 class Checkbox extends React.Component {
-
   toggleChange = () => {
     this.props.markAllTasks();
   }
 
   render() {
+    const { filtredTasks, activeCounter } = this.props;
+    const isComplete = activeCounter === 0;
 
-    const isComplete = this.props.allTasks.filter((task) => {
-      return task.isDone === false;
-    }).length !== 0
-      ? false
-      : true;
+    let toggleButtonClasses = classNames({
+      'toggle-all': true,
+      'hidden': filtredTasks.length === 0,
+    });
 
     return (
       <input
-        className="toggle-all"
+        className={toggleButtonClasses}
         type="checkbox"
         onChange={this.toggleChange}
         checked={isComplete}
@@ -26,4 +27,3 @@ class Checkbox extends React.Component {
 }
 
 export default Checkbox;
-

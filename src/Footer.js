@@ -1,54 +1,64 @@
 import React from 'react';
 import FilterOption from './FilterOption';
 import { filterNames } from './utils/constants'
+import classNames from 'classnames'
 
 class Footer extends React.Component {
   render() {
+    const {
+      all,
+      inProgress,
+      completed,
+    } = filterNames;
 
     const {
       deleteDoneTasks,
-      allTasksCounter,
-      completedTasksCounter,
-      tasksFilter,
+      activeCounter,
+      doneCounter,
+      filterTasks,
     } = this.props;
 
-   
     let counterText;
 
-    if (allTasksCounter === 1) {
-      counterText = `${allTasksCounter} item left`;
+    if (activeCounter === 1) {
+      counterText = `${activeCounter} item left`;
     } else {
-      counterText = `${allTasksCounter} items left`
+      counterText = `${activeCounter} items left`
     }
+
+    let clearAllButtonClasses = classNames({
+      'clear-all-button': true,
+      'hidden': doneCounter === 0
+    });
 
     return (
       <div className="footer">
         <span className='todo-count'>
           {counterText}
         </span>
-        <ul className="filters">
+        <div className="filters">
           <FilterOption
-            filterName={filterNames.all}
-            tasksFilter={tasksFilter}
+            filterName={all}
+            filterTasks={filterTasks}
           >
             All
           </FilterOption>
           <FilterOption
-            filterName={filterNames.inProgress}
-            tasksFilter={tasksFilter}
+            filterName={inProgress}
+            filterTasks={filterTasks}
           >
             Active
           </FilterOption>
           <FilterOption
-            filterName={filterNames.completed}
-            tasksFilter={tasksFilter}
+            filterName={completed}
+            filterTasks={filterTasks}
           >
             Completed
           </FilterOption>
-        </ul>
+        </div>
         <button
-          className='clear-all-button'
-          onClick={() => deleteDoneTasks()}>Clear completed [{completedTasksCounter}]
+          className={clearAllButtonClasses}
+          onClick={() => deleteDoneTasks()}>Clear completed [{doneCounter}]
         </button>
       </div>
     );

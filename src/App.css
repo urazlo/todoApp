@@ -28,7 +28,7 @@ body {
   position: relative;
 }
 
-.done-task {
+.completed-task {
   color: #d9d9d9;
   text-decoration: line-through;
 }
@@ -50,7 +50,6 @@ body {
 .new-todo, .edit {
   position: relative;
   margin: 0;
-  width: 100%;
   font-size: 24px;
   line-height: 1.4em;
   border: 0;
@@ -59,8 +58,21 @@ body {
   box-sizing: border-box;
 }
 
+.edit {
+  position: absolute;
+  top: 0;
+  left: 40px;
+  width: 85%
+}
+
+.edit:focus {
+  outline: none;
+  border: 2px solid #999;
+}
+
 .new-todo {
-  padding: 16px 16px 16px 60px;
+  width: 100%;
+  padding: 15px 15px 15px 40px;
   border: none;
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
 }
@@ -73,33 +85,32 @@ body {
   list-style: none;
   position: relative;
   font-size: 24px;
-  padding: 10px 10px 10px 40px;
   border-top: 1px solid #ededed;
   background-color: #fff;
   padding: 15px 0 15px 40px;
 }
 
-.todo-list .destroy {
+.todo-list .delete-task {
   position: absolute;
   right: 10px;
   top: 10px;
+  cursor: pointer;
 }
 
-.todo-list .destroy:hover {
+.todo-list .delete-task:hover {
   color: #dd2b31;
 }
 
 .toggle-all {
-  position: absolute;
-  top: -45px;
-  left: 10px;
   width: 20px;
   height: 20px;
+  cursor: pointer;
 }
 
 .toggle {
   position: absolute;
   left: 10px;
+  cursor: pointer;
 }
 
 button {
@@ -110,7 +121,7 @@ button {
 }
 
 .filters {
-  margin: 0 auto;
+  margin: 0 120px;
   display: flex;
   font-size: 16px;
 }
@@ -125,14 +136,16 @@ button {
   border-radius: 3px;
   transition-property: border-color;
   transition-duration: .3s;
+  cursor: pointer;
 }
 
 .filters li:hover {
   border-color: rgba(175, 47, 47, 0.1);
 }
 
-.filters li::selection {
-  border-color: rgba(175, 47, 47, 0.2);
+.filter-selected {
+  border: 1px solid rgba(255, 5, 5, 0.2);
+  
 }
 
 .clear-all-button {
@@ -140,10 +153,14 @@ button {
   color: inherit;
   text-decoration: none;
   cursor: pointer;
-  margin-top: -25px;
+  margin-top: -26px;
   font-size: 15px;
 }
 
 .clear-all-button:focus {
   outline: none
+}
+
+.hidden {
+  display: none;
 }
