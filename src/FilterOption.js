@@ -10,6 +10,7 @@ class FilterOption extends React.Component {
     const hash = window.location.hash;
 
     let filterClasses = classNames({
+      'filter-item': true,
       'filter-selected': this.props.filterName === hash,
     });
 

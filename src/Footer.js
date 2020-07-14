@@ -13,11 +13,14 @@ class Footer extends React.Component {
 
     const {
       deleteDoneTasks,
-      activeCounter,
-      doneCounter,
       filterTasks,
+      tasks,
     } = this.props;
 
+    let {
+      activeCounter,
+      doneCounter,
+    } = this.props;
     let counterText;
 
     if (activeCounter === 1) {
@@ -31,8 +34,13 @@ class Footer extends React.Component {
       'hidden': doneCounter === 0
     });
 
+    let footerClasses = classNames({
+      'footer': true,
+      'hidden': tasks.length === 0,
+    });
+
     return (
-      <div className="footer">
+      <div className={footerClasses}>
         <span className='todo-count'>
           {counterText}
         </span>

@@ -154,8 +154,10 @@ class App extends React.Component {
           activeCounter={activeCounter}
           doneCounter={doneCounter}
           filterTasks={this.filterTasks}
+          tasks={this.state.tasks}
           deleteDoneTasks={this.deleteDoneTasks}
           filter={this.state.filter}
+          filtredTasks={filtredTasks}
         />
       </>
     );
