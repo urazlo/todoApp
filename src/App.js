@@ -34,7 +34,10 @@ class App extends React.Component {
         isDone: false,
       };
 
-      this.setState({ tasks: [...tasks, task], value: '' }, this.updateLocalStorage);
+      this.setState({
+        tasks: [...tasks, task],
+        value: ''
+      }, this.updateLocalStorage);
     }
   }
 
@@ -58,7 +61,7 @@ class App extends React.Component {
 
   markAllTasks = () => {
     const { tasks } = this.state;
-    let clonnedTask = [];
+    let clonnedTasks = [];
 
     const undoneTasks = tasks.filter((task) => {
       return task.isDone === false;
@@ -66,32 +69,30 @@ class App extends React.Component {
       ? false
       : true;
 
-    clonnedTask = tasks.map((task) => {
+    clonnedTasks = tasks.map((task) => {
       return {
         ...task,
-        isDone: undoneTasks
+        isDone: undoneTasks,
       }
     });
 
-    this.setState({ tasks: clonnedTask }, this.updateLocalStorage)
+    this.setState({ tasks: clonnedTasks }, this.updateLocalStorage)
   }
 
   deleteDoneTasks = () => {
-    const { tasks } = this.state;
+    const tasks = this.state.tasks.filter((task) => !task.isDone);
 
-    this.setState({
-      tasks: tasks.filter((task) => !task.isDone)
-    }, this.updateLocalStorage);
+    this.setState({ tasks }, this.updateLocalStorage);
   };
 
-  filterTasks = (filterName) => {
-    window.location.hash = filterName;
+  filterTasks = (filter) => {
+    window.location.hash = filter;
 
-    this.setState({ filter: filterName });
+    this.setState({ filter });
   }
 
   updateLocalStorage = () => {
-    tasksStorage.set(this.state.tasks)
+    tasksStorage.set(this.state.tasks);
   }
 
   editTask = (id, text) => {
@@ -142,12 +143,14 @@ class App extends React.Component {
           markAllTasks={this.markAllTasks}
           activeCounter={activeCounter}
         />
+
         <Section
           editTask={this.editTask}
           filtredTasks={filtredTasks}
           deleteTask={this.deleteTask}
           markTask={this.markTask}
         />
+
         <Footer
           setRoute={this.setRoute}
           filterNames={filterNames}

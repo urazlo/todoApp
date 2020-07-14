@@ -15,19 +15,11 @@ class Footer extends React.Component {
       deleteDoneTasks,
       filterTasks,
       tasks,
-    } = this.props;
-
-    let {
       activeCounter,
       doneCounter,
     } = this.props;
-    let counterText;
 
-    if (activeCounter === 1) {
-      counterText = `${activeCounter} item left`;
-    } else {
-      counterText = `${activeCounter} items left`
-    }
+    const counterText = `${activeCounter} item${activeCounter === 1 ? '' : 's'} left`;
 
     let clearAllButtonClasses = classNames({
       'clear-all-button': true,
@@ -66,7 +58,7 @@ class Footer extends React.Component {
         </div>
         <button
           className={clearAllButtonClasses}
-          onClick={() => deleteDoneTasks()}>Clear completed [{doneCounter}]
+          onClick={deleteDoneTasks}>Clear completed [{doneCounter}]
         </button>
       </div>
     );

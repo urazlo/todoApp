@@ -15,14 +15,16 @@ class Header extends React.Component {
     return (
       <div className='header'>
         <h1>todos</h1>
+
         <Checkbox
           activeCounter={activeCounter}
           markAllTasks={markAllTasks}
           filtredTasks={filtredTasks}
         />
+
         <input
-          className='new-todo'
-          placeholder='What needs to be done?'
+          className="new-todo"
+          placeholder="What needs to be done?"
           autoFocus
           value={value}
           onKeyPress={handleEnter}

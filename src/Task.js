@@ -6,9 +6,21 @@ class Task extends React.Component {
     super(props);
 
     this.state = {
-      showInput: false,
       changedTitle: props.title,
-      isHovered: false,
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.escapeListener);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.escapeListener);
+  }
+
+  escapeListener = (e) => {
+    if (e.key === 'Escape') {
+      this.props.changeEditableTaskId(null);
     }
   }
 
@@ -18,23 +30,34 @@ class Task extends React.Component {
 
   onToggle = () => {
     this.props.markTask(this.props.id);
-    this.setState({
-      isChecked: !this.state.isChecked,
-    });
   }
 
   doubleClickHandler = () => {
-    this.setState({ showInput: true });
+    this.props.changeEditableTaskId(this.props.id);
   }
 
-  handleEnter = (e) => {
+  clickHandler = (e) => {
+    if (this.props.editableTaskId === this.props.id) {
+      e.stopPropagation();
+    } else {
+      this.props.changeEditableTaskId(null);
+      this.setState({ changedTitle: this.props.title });
+    }
+  }
+
+  clickBlocker = (e) => {
+    e.stopPropagation();
+  }
+
+  onInputKeyDown = (e) => {
     if (e.key === 'Enter') {
-      this.setState({ showInput: false });
       this.props.editTask(this.props.id, this.state.changedTitle);
+      this.props.changeEditableTaskId(null);
     }
 
     if (e.key === 'Escape') {
-      this.setState({ showInput: false, changedTitle: this.props.title });
+      this.setState({ changedTitle: this.props.title });
+      this.props.changeEditableTaskId(null);
     }
   }
 
@@ -42,64 +65,46 @@ class Task extends React.Component {
     this.setState({ changedTitle: e.target.value });
   }
 
-  on = () => {
-    this.setState({ isHovered: true });
-  }
-
-  mouseOverHandler = () => {
-    this.setState({ isHovered: true });
-  }
-
-  mouseLeaveHandler = () => {
-    this.setState({ isHovered: false });
-  }
-
-  handleBlur = () => {
-    this.setState({ showInput: false, changedTitle: this.props.title });
-  }
-
   render() {
-
-    let taskClasses = classNames({
+    const taskClasses = classNames(
+      'todo-list-item', {
       'completed-task': this.props.isDone,
     });
 
-    let deleteButtonClass = classNames({
-      'delete-task': true,
-      'hidden': !this.state.isHovered,
-    });
+    const showInput = this.props.id === this.props.editableTaskId;
 
     return (
       <div
         className='todo-list'
         onDoubleClick={this.doubleClickHandler}
-        onMouseOver={this.mouseOverHandler}
-        onMouseLeave={this.mouseLeaveHandler}
+        onClick={this.clickHandler}
       >
-        {this.state.showInput && (
+        {showInput && (
           <input
             autoFocus
             className='edit'
-            onKeyDown={this.handleEnter}
+            onKeyDown={this.onInputKeyDown}
             value={this.state.changedTitle}
             onChange={this.onEdit}
-            onBlur={this.handleBlur}
+            onClick={this.clickBlocker}
           />
         )}
+
         <input
           className='toggle'
           type='checkbox'
           checked={this.props.isDone}
           onChange={this.onToggle}
+          onDoubleClick={this.clickBlocker}
         />
-        <label
-          className={taskClasses}
-        >
+
+        <span className={taskClasses}>
           {this.props.title}
-        </label>
+        </span>
+
         <button
           onClick={this.onDelete}
-          className={deleteButtonClass}
+          className="delete-task-btn"
         >
           X
         </button>

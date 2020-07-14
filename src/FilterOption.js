@@ -7,7 +7,7 @@ class FilterOption extends React.Component {
   }
 
   render() {
-    const hash = window.location.hash;
+    const { hash } = window.location;
 
     let filterClasses = classNames({
       'filter-item': true,

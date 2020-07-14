@@ -12,15 +12,14 @@ body {
   background: #fff;
   margin-top: 130px;
   position: relative;
-  width: 100%;
-  border-bottom: 1px solid rgba(226, 206, 206, 0.575);
+  border-bottom: 2px solid rgba(98, 77, 216, 0.308);
 }
 
 .header h1 {
   position: absolute;
   top: -140px;
   width: 100%;
-  font-size: 80px;
+  font-size: 100px;
   font-weight: 100;
   text-align: center;
   color: rgba(72, 50, 202, 0.15);
@@ -38,7 +37,7 @@ body {
 }
 
 .completed-task {
-  color: #d9d9d9;
+  color: #2e2beca9;
   text-decoration: line-through;
 }
 
@@ -46,22 +45,21 @@ body {
   margin: 0;
   font-size: 24px;
   line-height: 1.4em;
-  border: 0;
   box-sizing: border-box;
 }
 
 .edit {
   position: absolute;
-  top: 0;
+  top: -2px;
   left: 40px;
   width: 92.8%;
   padding: 6px;
-  color: #777;
+  color: rgba(26, 112, 224, 0.808);
 }
 
 .edit:focus {
   outline: none;
-  border: 2px solid #999;
+  border: 2px solid rgba(255, 102, 1, 0.465);
 }
 
 .new-todo {
@@ -77,29 +75,46 @@ body {
 }
 
 .todo-list {
-  list-style: none;
+  display: flex;
   position: relative;
   font-size: 24px;
   border-top: 1px solid #ededed;
   background-color: #fff;
-  padding: 15px 0 15px 40px;
+  padding: 10px;
+  margin-top: 2px;
+  align-items: center;
 }
 
-.todo-list .delete-task {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  cursor: pointer;
-}
-
-.todo-list .delete-task:hover {
-  color: #dd2b31;
+.todo-list:nth-child(1) {
+  border-top: none;
 }
 
 .toggle {
-  position: absolute;
-  left: 10px;
+  width: 15px;
+  height: 15px;
   cursor: pointer;
+}
+
+.todo-list-item {
+  margin-left: 10px;
+  flex-grow: 2;
+  padding: 2px;
+}
+
+.delete-task-btn {
+  cursor: pointer;
+  font-size: 22px;
+  margin-right: 10px;
+  opacity: 0;
+}
+
+.todo-list:hover .delete-task-btn {
+  opacity: 1;
+  color: #dd2b31;
+}
+
+.delete-task-btn:focus {
+  outline: none
 }
 
 .footer {
@@ -112,31 +127,30 @@ body {
 .todo-count {
   font-size: 15px;
   padding: 4px;
+  flex-grow: 1;
+  float: left;
 }
 
 .filters {
   display: flex;
   font-size: 16px;
-  flex-grow: 1;
-  justify-content: center;
+  flex-grow: 2;
+  justify-content: space-around;
 }
 
 .filter-item {
-  border-radius: 3px;
-  transition-property: border-color;
-  transition-duration: .1s;
+  border-radius: 5px;
   cursor: pointer;
-  margin-left: 10%;
-  padding: 4px;
+  padding: 6px;
 }
 
 .filter-item:hover {
-  padding: 2px;
+  padding: 4px;
   border: 2px solid rgba(25, 0, 255, 0.2);
 }
 
 .filter-selected {
-  padding: 2px;
+  padding: 4px;
   border: 2px solid rgba(25, 0, 255, 0.2);
 }
 
@@ -144,6 +158,7 @@ body {
   color: inherit;
   text-decoration: none;
   cursor: pointer;
+  float: right;
   font-size: 15px;
   padding: 4px;
 }
@@ -160,33 +175,91 @@ button {
 }
 
 .hidden {
-  display: none;
+  opacity: 0;
+  cursor: default;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-  .toggle-all, .todo-list li .toggle {
-    background: none;
-  }
-  .todo-list li .toggle {
-    height: 40px;
-  }
+input {
+  border: 2px solid rgba(255, 102, 1, 0.465);
 }
 
-@media (max-width: 320px) {
-  .new-todo {
-    padding: 5px;
+@media (min-width: 320px) and (max-width:550px) {
+  .header {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+  .todo-list, .edit {
+    padding: 8px;
+    font-size: 20px;
+    margin: 0 5px;
+  }
+  .footer {
+    height: 70px;
+    position: relative;
+    margin: 0 auto;
   }
   .filters {
-    flex-direction: column;
-    align-items: center;
-    bottom: 10px;
-    font-size: 14px;
+    max-height: 30px;
+    justify-content: space-evenly;
   }
+}
+
+@media (min-width: 480px) and (max-width:550px) {
   .clear-all-button {
-    padding: 4px;
+    font-size: 14px;
+    position: absolute;
+    bottom: 17px;
+    right: 125px;
   }
   .todo-count {
-    padding: 0;
-    vertical-align: middle;
+    position: absolute;
+    font-size: 14px;
+    bottom: 15px;
+    left: 125px;
+  }
+}
+
+@media (min-width: 425px) and (max-width:479px) {
+  .clear-all-button {
+    font-size: 14px;
+    position: absolute;
+    bottom: 17px;
+    right: 100px;
+  }
+  .todo-count {
+    position: absolute;
+    font-size: 14px;
+    bottom: 15px;
+    left: 100px;
+  }
+}
+
+@media (min-width: 375px) and (max-width:424px) {
+  .clear-all-button {
+    font-size: 14px;
+    position: absolute;
+    bottom: 17px;
+    right: 75px;
+  }
+  .todo-count {
+    position: absolute;
+    font-size: 14px;
+    bottom: 15px;
+    left: 75px;
+  }
+}
+
+@media (min-width: 320px) and (max-width:374px) {
+  .clear-all-button {
+    font-size: 14px;
+    position: absolute;
+    bottom: 17px;
+    right: 40px;
+  }
+  .todo-count {
+    position: absolute;
+    font-size: 14px;
+    bottom: 15px;
+    left: 40px;
   }
 }
