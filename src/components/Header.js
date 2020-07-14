@@ -1,5 +1,5 @@
 import React from 'react';
-import Checkbox from './Checkbox';
+import Toggler from './Toggler';
 
 class Header extends React.Component {
   render() {
@@ -9,14 +9,14 @@ class Header extends React.Component {
       handleEnter,
       activeCounter,
       markAllTasks,
-      filtredTasks
+      filtredTasks,
     } = this.props;
 
     return (
-      <div className='header'>
+      <div className="header">
         <h1>todos</h1>
 
-        <Checkbox
+        <Toggler
           activeCounter={activeCounter}
           markAllTasks={markAllTasks}
           filtredTasks={filtredTasks}

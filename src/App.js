@@ -1,9 +1,11 @@
 import React from 'react';
 import './App.css';
-import Section from './Section';
-import Footer from './Footer';
-import Header from './Header';
-import { tasksStorage, filterNames } from './utils/constants';
+import Section from './components/Section';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import { tasksStorage } from './utils';
+import { filterNames } from './utils/constants';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -41,12 +43,13 @@ class App extends React.Component {
     }
   }
 
-  deleteTask = (index) => {
+  deleteTask = (id) => {
     const { tasks } = this.state;
 
+    const index = tasks.findIndex((task) => task.id === id);
     tasks.splice(index, 1);
 
-    this.setState({ tasks: tasks }, this.updateLocalStorage);
+    this.setState({ tasks }, this.updateLocalStorage);
   };
 
   markTask = (id) => {
@@ -58,23 +61,31 @@ class App extends React.Component {
     this.setState({ tasks }, this.updateLocalStorage);
   };
 
-
   markAllTasks = () => {
     const { tasks } = this.state;
-    let clonnedTasks = [];
+    let clonnedTasks;
 
-    const undoneTasks = tasks.filter((task) => {
+    const completedTasks = tasks.filter((task) => {
       return task.isDone === false;
     }).length === 0
       ? false
       : true;
 
-    clonnedTasks = tasks.map((task) => {
-      return {
-        ...task,
-        isDone: undoneTasks,
-      }
-    });
+    if (completedTasks) {
+      clonnedTasks = tasks.map((task) => {
+        return {
+          ...task,
+          isDone: true,
+        }
+      });
+    } else {
+      clonnedTasks = tasks.map((task) => {
+        return {
+          ...task,
+          isDone: false,
+        }
+      });
+    }
 
     this.setState({ tasks: clonnedTasks }, this.updateLocalStorage)
   }

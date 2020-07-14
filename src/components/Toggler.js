@@ -1,13 +1,13 @@
 import React from 'react';
 import classNames from 'classnames'
 
-class Checkbox extends React.Component {
+class Toggler extends React.Component {
   render() {
     const { filtredTasks, activeCounter } = this.props;
     const isComplete = activeCounter === 0;
 
-    let toggleButtonClasses = classNames({
-      'toggle-all': true,
+    const toggleButtonClasses = classNames(
+      'toggle-all', {
       'hidden': filtredTasks.length === 0,
     });
 
@@ -22,4 +22,4 @@ class Checkbox extends React.Component {
   }
 }
 
-export default Checkbox;
+export default Toggler;

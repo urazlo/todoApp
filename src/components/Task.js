@@ -25,7 +25,7 @@ class Task extends React.Component {
   }
 
   onDelete = () => {
-    this.props.deleteTask(this.props.index);
+    this.props.deleteTask(this.props.id);
   }
 
   onToggle = () => {
@@ -75,14 +75,14 @@ class Task extends React.Component {
 
     return (
       <div
-        className='todo-list'
+        className="todo-list"
         onDoubleClick={this.doubleClickHandler}
         onClick={this.clickHandler}
       >
         {showInput && (
           <input
             autoFocus
-            className='edit'
+            className="edit"
             onKeyDown={this.onInputKeyDown}
             value={this.state.changedTitle}
             onChange={this.onEdit}
@@ -91,8 +91,8 @@ class Task extends React.Component {
         )}
 
         <input
-          className='toggle'
-          type='checkbox'
+          className="toggle"
+          type="checkbox"
           checked={this.props.isDone}
           onChange={this.onToggle}
           onDoubleClick={this.clickBlocker}
@@ -104,6 +104,7 @@ class Task extends React.Component {
 
         <button
           onClick={this.onDelete}
+          onDoubleClick={this.clickBlocker}
           className="delete-task-btn"
         >
           X
