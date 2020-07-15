@@ -6,18 +6,18 @@ import classNames from 'classnames'
 class Footer extends React.Component {
   render() {
     const {
-      deleteDoneTasks,
+      deleteCompletedTasks,
       filterTasks,
       tasks,
       activeCounter,
-      doneCounter,
+      completedCounter,
       filter,
     } = this.props;
 
     const counterText = `${activeCounter} item${activeCounter === 1 ? '' : 's'} left`;
 
     const clearAllButtonClasses = classNames('clear-all-button', {
-      'hidden': doneCounter === 0,
+      'hidden': completedCounter === 0,
     });
 
     const footerClasses = classNames('footer', {
@@ -58,9 +58,9 @@ class Footer extends React.Component {
         </div>
         <button
           className={clearAllButtonClasses}
-          onClick={deleteDoneTasks}
+          onClick={deleteCompletedTasks}
         >
-          Clear completed [{doneCounter}]
+          Clear completed [{completedCounter}]
         </button>
       </div>
     );

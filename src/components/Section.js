@@ -12,7 +12,7 @@ class Section extends React.Component {
     const {
       filtredTasks,
       deleteTask,
-      markTask,
+      toggleTask,
       editTask,
     } = this.props;
 
@@ -20,16 +20,16 @@ class Section extends React.Component {
       <div className="main">
         {filtredTasks.map(({ id, title, isDone }, index) => (
           <Task
-            editTask={editTask}
             key={id}
             id={id}
-            editableTaskId={this.state.editableTaskId}
-            changeEditableTaskId={this.changeEditableTaskId}
             title={title}
             isDone={isDone}
             index={index}
+            editableTaskId={this.state.editableTaskId}
+            editTask={editTask}
             deleteTask={deleteTask}
-            markTask={markTask}
+            toggleTask={toggleTask}
+            changeEditableTaskId={this.changeEditableTaskId}
           />
         ))}
       </div>

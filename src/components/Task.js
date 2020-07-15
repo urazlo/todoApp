@@ -29,16 +29,16 @@ class Task extends React.Component {
   }
 
   onToggle = () => {
-    this.props.markTask(this.props.id);
+    this.props.toggleTask(this.props.id);
   }
 
-  doubleClickHandler = () => {
+  doubleClickHandler = (e) => {
     this.props.changeEditableTaskId(this.props.id);
   }
 
   clickHandler = (e) => {
     if (this.props.editableTaskId === this.props.id) {
-      e.stopPropagation();
+    e.stopPropagation();
     } else {
       this.props.changeEditableTaskId(null);
       this.setState({ changedTitle: this.props.title });
@@ -66,12 +66,20 @@ class Task extends React.Component {
   }
 
   render() {
+    const { changedTitle } = this.state;
+    const {
+      id,
+      isDone,
+      title,
+      editableTaskId,
+    } = this.props;
+
     const taskClasses = classNames(
       'todo-list-item', {
-      'completed-task': this.props.isDone,
+      'completed-task': isDone,
     });
 
-    const showInput = this.props.id === this.props.editableTaskId;
+    const showInput = id === editableTaskId;
 
     return (
       <div
@@ -81,31 +89,29 @@ class Task extends React.Component {
       >
         {showInput && (
           <input
-            autoFocus
             className="edit"
+            autoFocus
+            value={changedTitle}
             onKeyDown={this.onInputKeyDown}
-            value={this.state.changedTitle}
             onChange={this.onEdit}
             onClick={this.clickBlocker}
           />
         )}
 
         <input
-          className="toggle"
           type="checkbox"
-          checked={this.props.isDone}
+          className="toggle"
+          checked={isDone}
           onChange={this.onToggle}
           onDoubleClick={this.clickBlocker}
         />
 
-        <span className={taskClasses}>
-          {this.props.title}
-        </span>
+        <span className={taskClasses}>{title}</span>
 
         <button
+          className="delete-task-btn"
           onClick={this.onDelete}
           onDoubleClick={this.clickBlocker}
-          className="delete-task-btn"
         >
           X
         </button>

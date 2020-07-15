@@ -8,7 +8,7 @@ class Header extends React.Component {
       handleChange,
       handleEnter,
       activeCounter,
-      markAllTasks,
+      toggleAllTasks,
       filtredTasks,
     } = this.props;
 
@@ -18,8 +18,8 @@ class Header extends React.Component {
 
         <Toggler
           activeCounter={activeCounter}
-          markAllTasks={markAllTasks}
           filtredTasks={filtredTasks}
+          toggleAllTasks={toggleAllTasks}
         />
 
         <input

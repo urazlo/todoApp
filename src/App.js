@@ -3,7 +3,7 @@ import './App.css';
 import Section from './components/Section';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import { tasksStorage } from './utils';
+import { tasksStorage, getTaskId } from './utils';
 import { filterNames } from './utils/constants';
 
 
@@ -25,13 +25,16 @@ class App extends React.Component {
     };
   }
 
+  updateLocalStorage = () => {
+    tasksStorage.set(this.state.tasks);
+  }
+
   addTask = () => {
     const { tasks, value } = this.state;
-    const id = Math.random().toString(36).substr(2, 9);
 
     if (value.trim()) {
       const task = {
-        id,
+        id: getTaskId(),
         title: value.trim(),
         isDone: false,
       };
@@ -52,7 +55,7 @@ class App extends React.Component {
     this.setState({ tasks }, this.updateLocalStorage);
   };
 
-  markTask = (id) => {
+  toggleTask = (id) => {
     const tasks = [...this.state.tasks];
 
     const index = tasks.findIndex((task) => task.id === id);
@@ -61,7 +64,7 @@ class App extends React.Component {
     this.setState({ tasks }, this.updateLocalStorage);
   };
 
-  markAllTasks = () => {
+  toggleAllTasks = () => {
     const { tasks } = this.state;
     let clonnedTasks;
 
@@ -90,7 +93,7 @@ class App extends React.Component {
     this.setState({ tasks: clonnedTasks }, this.updateLocalStorage)
   }
 
-  deleteDoneTasks = () => {
+  deleteCompletedTasks = () => {
     const tasks = this.state.tasks.filter((task) => !task.isDone);
 
     this.setState({ tasks }, this.updateLocalStorage);
@@ -100,10 +103,6 @@ class App extends React.Component {
     window.location.hash = filter;
 
     this.setState({ filter });
-  }
-
-  updateLocalStorage = () => {
-    tasksStorage.set(this.state.tasks);
   }
 
   editTask = (id, text) => {
@@ -131,10 +130,10 @@ class App extends React.Component {
     } = this.state;
 
     let activeCounter = 0;
-    let doneCounter = 0;
+    let completedCounter = 0;
 
     const filtredTasks = tasks.filter((task) => {
-      task.isDone && doneCounter++;
+      task.isDone && completedCounter++;
       !task.isDone && activeCounter++;
 
       if (filter === filterNames.all) {
@@ -149,29 +148,28 @@ class App extends React.Component {
         <Header
           value={value}
           filtredTasks={filtredTasks}
+          activeCounter={activeCounter}
           handleChange={this.handleChange}
           handleEnter={this.handleEnter}
-          markAllTasks={this.markAllTasks}
-          activeCounter={activeCounter}
+          toggleAllTasks={this.toggleAllTasks}
         />
 
         <Section
-          editTask={this.editTask}
           filtredTasks={filtredTasks}
+          editTask={this.editTask}
           deleteTask={this.deleteTask}
-          markTask={this.markTask}
+          toggleTask={this.toggleTask}
         />
 
         <Footer
-          setRoute={this.setRoute}
           filterNames={filterNames}
           activeCounter={activeCounter}
-          doneCounter={doneCounter}
-          filterTasks={this.filterTasks}
-          tasks={this.state.tasks}
-          deleteDoneTasks={this.deleteDoneTasks}
-          filter={this.state.filter}
+          completedCounter={completedCounter}
+          tasks={tasks}
+          filter={filter}
           filtredTasks={filtredTasks}
+          filterTasks={this.filterTasks}
+          deleteCompletedTasks={this.deleteCompletedTasks}
         />
       </>
     );

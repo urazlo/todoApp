@@ -3,7 +3,11 @@ import classNames from 'classnames'
 
 class Toggler extends React.Component {
   render() {
-    const { filtredTasks, activeCounter } = this.props;
+    const {
+      filtredTasks,
+      activeCounter,
+      toggleAllTasks,
+    } = this.props;
     const isComplete = activeCounter === 0;
 
     const toggleButtonClasses = classNames(
@@ -15,7 +19,7 @@ class Toggler extends React.Component {
       <input
         className={toggleButtonClasses}
         type="checkbox"
-        onChange={this.props.markAllTasks}
+        onChange={toggleAllTasks}
         checked={isComplete}
       />
     );

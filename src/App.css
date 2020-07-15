@@ -129,6 +129,7 @@ body {
   padding: 4px;
   flex-grow: 1;
   float: left;
+  flex-basis: 3%;
 }
 
 .filters {
@@ -183,7 +184,7 @@ input {
   border: 2px solid rgba(255, 102, 1, 0.465);
 }
 
-@media (min-width: 320px) and (max-width:550px) {
+@media (max-width:550px) {
   .header {
     margin-right: 5px;
     margin-left: 5px;
@@ -192,6 +193,11 @@ input {
     padding: 8px;
     font-size: 20px;
     margin: 0 5px;
+  }
+  .edit {
+    top: -1px;
+    left: 35px;
+    padding: 6px;
   }
   .footer {
     height: 70px;
@@ -202,9 +208,6 @@ input {
     max-height: 30px;
     justify-content: space-evenly;
   }
-}
-
-@media (min-width: 480px) and (max-width:550px) {
   .clear-all-button {
     font-size: 14px;
     position: absolute;
@@ -219,47 +222,58 @@ input {
   }
 }
 
-@media (min-width: 425px) and (max-width:479px) {
+@media (max-width: 480px) {
   .clear-all-button {
-    font-size: 14px;
-    position: absolute;
     bottom: 17px;
     right: 100px;
   }
   .todo-count {
-    position: absolute;
-    font-size: 14px;
     bottom: 15px;
     left: 100px;
   }
 }
 
-@media (min-width: 375px) and (max-width:424px) {
+@media (max-width: 425px) {
   .clear-all-button {
-    font-size: 14px;
-    position: absolute;
     bottom: 17px;
     right: 75px;
   }
   .todo-count {
-    position: absolute;
-    font-size: 14px;
     bottom: 15px;
     left: 75px;
   }
+  .edit {
+    width: 90.5%;
+  }
 }
 
-@media (min-width: 320px) and (max-width:374px) {
+@media (max-width: 375px) {
   .clear-all-button {
-    font-size: 14px;
-    position: absolute;
     bottom: 17px;
-    right: 40px;
+    right: 60px;
   }
   .todo-count {
-    position: absolute;
-    font-size: 14px;
     bottom: 15px;
-    left: 40px;
+    left: 65px;
+  }
+  .new-todo {
+    font-size: 21px;
+  }
+  .edit {
+    width: 89%;
+  }
+}
+
+@media (max-width: 320px) {
+  .clear-all-button {
+    bottom: 17px;
+    right: 45px;
+  }
+  .todo-count {
+    bottom: 15px;
+    left: 50px;
+  }
+  .edit {
+    width: 87%;
   }
 }
