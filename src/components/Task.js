@@ -1,5 +1,6 @@
 import React from 'react';
-import classNames from 'classnames'
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 class Task extends React.Component {
   constructor(props) {
@@ -7,7 +8,7 @@ class Task extends React.Component {
 
     this.state = {
       changedTitle: props.title,
-    }
+    };
   }
 
   componentDidMount() {
@@ -32,13 +33,13 @@ class Task extends React.Component {
     this.props.toggleTask(this.props.id);
   }
 
-  doubleClickHandler = (e) => {
+  doubleClickHandler = () => {
     this.props.changeEditableTaskId(this.props.id);
   }
 
   clickHandler = (e) => {
     if (this.props.editableTaskId === this.props.id) {
-    e.stopPropagation();
+      e.stopPropagation();
     } else {
       this.props.changeEditableTaskId(null);
       this.setState({ changedTitle: this.props.title });
@@ -75,9 +76,11 @@ class Task extends React.Component {
     } = this.props;
 
     const taskClasses = classNames(
-      'todo-list-item', {
-      'completed-task': isDone,
-    });
+      'todo-list-item',
+      {
+        'completed-task': isDone,
+      },
+    );
 
     const showInput = id === editableTaskId;
 
@@ -119,5 +122,18 @@ class Task extends React.Component {
     );
   }
 }
+
+Task.propTypes = {
+  id: PropTypes.string.isRequired,
+  editableTaskId: PropTypes.string,
+  isDone: PropTypes.bool,
+  title: PropTypes.string,
+};
+
+Task.defaultProps = {
+  isDone: false,
+  title: '',
+  editableTaskId: null,
+};
 
 export default Task;

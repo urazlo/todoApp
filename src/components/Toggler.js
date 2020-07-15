@@ -1,5 +1,8 @@
 import React from 'react';
-import classNames from 'classnames'
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+
+import { TaskType } from 'utils/types';
 
 class Toggler extends React.Component {
   render() {
@@ -11,9 +14,11 @@ class Toggler extends React.Component {
     const isComplete = activeCounter === 0;
 
     const toggleButtonClasses = classNames(
-      'toggle-all', {
-      'hidden': filtredTasks.length === 0,
-    });
+      'toggle-all',
+      {
+        hidden: filtredTasks.length === 0,
+      },
+    );
 
     return (
       <input
@@ -25,5 +30,17 @@ class Toggler extends React.Component {
     );
   }
 }
+
+Toggler.propTypes = {
+  filtredTasks: PropTypes.arrayOf(TaskType),
+  activeCounter: PropTypes.number,
+  toggleAllTasks: PropTypes.func,
+};
+
+Toggler.defaultProps = {
+  filtredTasks: [],
+  activeCounter: 0,
+  toggleAllTasks: () => null,
+};
 
 export default Toggler;

@@ -1,14 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
+import { FilterType } from 'utils/types';
+import { filterNames } from 'utils/constants';
 import FilterOption from './FilterOption';
-import { filterNames } from '../utils/constants'
-import classNames from 'classnames'
 
 class Footer extends React.Component {
   render() {
     const {
       deleteCompletedTasks,
       filterTasks,
-      tasks,
       activeCounter,
       completedCounter,
       filter,
@@ -17,11 +19,11 @@ class Footer extends React.Component {
     const counterText = `${activeCounter} item${activeCounter === 1 ? '' : 's'} left`;
 
     const clearAllButtonClasses = classNames('clear-all-button', {
-      'hidden': completedCounter === 0,
+      hidden: completedCounter === 0,
     });
 
     const footerClasses = classNames('footer', {
-      'hidden': tasks.length === 0,
+      hidden: completedCounter + activeCounter === 0,
     });
 
     return (
@@ -29,8 +31,8 @@ class Footer extends React.Component {
         <span className='todo-count'>
           {counterText}
         </span>
-        <div className="filters">
 
+        <div className="filters">
           <FilterOption
             filterName={filterNames.all}
             filterTasks={filterTasks}
@@ -56,6 +58,7 @@ class Footer extends React.Component {
           </FilterOption>
 
         </div>
+
         <button
           className={clearAllButtonClasses}
           onClick={deleteCompletedTasks}
@@ -66,5 +69,21 @@ class Footer extends React.Component {
     );
   }
 }
+
+Footer.propTypes = {
+  activeCounter: PropTypes.number,
+  completedCounter: PropTypes.number,
+  deleteCompletedTasks: PropTypes.func,
+  filterTasks: PropTypes.func,
+  filter: FilterType,
+};
+
+Footer.defaultProps = {
+  deleteCompletedTasks: () => null,
+  filterTasks: () => null,
+  activeCounter: 0,
+  completedCounter: 0,
+  filter: 'all',
+};
 
 export default Footer;

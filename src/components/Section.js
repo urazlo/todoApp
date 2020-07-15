@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { TaskType } from 'utils/types';
 import Task from './Task';
 
 class Section extends React.Component {
@@ -18,13 +21,12 @@ class Section extends React.Component {
 
     return (
       <div className="main">
-        {filtredTasks.map(({ id, title, isDone }, index) => (
+        {filtredTasks.map(({ id, title, isDone }) => (
           <Task
             key={id}
             id={id}
             title={title}
             isDone={isDone}
-            index={index}
             editableTaskId={this.state.editableTaskId}
             editTask={editTask}
             deleteTask={deleteTask}
@@ -36,5 +38,19 @@ class Section extends React.Component {
     );
   }
 }
+
+Section.propTypes = {
+  filtredTasks: PropTypes.arrayOf(TaskType),
+  editTask: PropTypes.func,
+  deleteTask: PropTypes.func,
+  toggleTask: PropTypes.func,
+};
+
+Section.defaultProps = {
+  editTask: () => null,
+  deleteTask: () => null,
+  toggleTask: () => null,
+  filtredTasks: [],
+};
 
 export default Section;

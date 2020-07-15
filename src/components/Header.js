@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { TaskType } from 'utils/types';
 import Toggler from './Toggler';
 
 class Header extends React.Component {
@@ -34,5 +37,23 @@ class Header extends React.Component {
     );
   }
 }
+
+Header.propTypes = {
+  value: PropTypes.string,
+  activeCounter: PropTypes.number,
+  filtredTasks: PropTypes.arrayOf(TaskType),
+  handleChange: PropTypes.func,
+  handleEnter: PropTypes.func,
+  toggleAllTasks: PropTypes.func,
+};
+
+Header.defaultProps = {
+  value: '',
+  activeCounter: 0,
+  filtredTasks: [],
+  handleChange: () => null,
+  handleEnter: () => null,
+  toggleAllTasks: () => null,
+};
 
 export default Header;

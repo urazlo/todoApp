@@ -1,11 +1,11 @@
 import React from 'react';
-import 'App.css';
-import Section from 'components/Section';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import { tasksStorage, getTaskId } from './utils';
-import { filterNames } from './utils/constants';
 
+import Section from 'components/Section';
+import Footer from 'components/Footer';
+import Header from 'components/Header';
+
+import { tasksStorage, getTaskId } from 'utils';
+import { filterNames } from 'utils/constants';
 
 class App extends React.Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class App extends React.Component {
 
       this.setState({
         tasks: [...tasks, task],
-        value: ''
+        value: '',
       }, this.updateLocalStorage);
     }
   }
@@ -56,7 +56,7 @@ class App extends React.Component {
   };
 
   toggleTask = (id) => {
-    const tasks = [...this.state.tasks];
+    const { tasks } = this.state;
 
     const index = tasks.findIndex((task) => task.id === id);
     tasks[index].isDone = !tasks[index].isDone;
@@ -70,31 +70,30 @@ class App extends React.Component {
 
     const completedTasks = tasks.filter((task) => {
       return task.isDone === false;
-    }).length === 0
-      ? false
-      : true;
+    }).length !== 0;
 
     if (completedTasks) {
       clonnedTasks = tasks.map((task) => {
         return {
           ...task,
           isDone: true,
-        }
+        };
       });
     } else {
       clonnedTasks = tasks.map((task) => {
         return {
           ...task,
           isDone: false,
-        }
+        };
       });
     }
 
-    this.setState({ tasks: clonnedTasks }, this.updateLocalStorage)
+    this.setState({ tasks: clonnedTasks }, this.updateLocalStorage);
   }
 
   deleteCompletedTasks = () => {
-    const tasks = this.state.tasks.filter((task) => !task.isDone);
+    const { tasks } = this.state;
+    tasks.filter((task) => !task.isDone);
 
     this.setState({ tasks }, this.updateLocalStorage);
   };
@@ -106,7 +105,7 @@ class App extends React.Component {
   }
 
   editTask = (id, text) => {
-    const tasks = [...this.state.tasks];
+    const { tasks } = this.state;
 
     const index = tasks.findIndex((task) => task.id === id);
     tasks[index].title = text;
@@ -133,12 +132,11 @@ class App extends React.Component {
     let completedCounter = 0;
 
     const filtredTasks = tasks.filter((task) => {
-      task.isDone && completedCounter++;
-      !task.isDone && activeCounter++;
+      if (task.isDone) { completedCounter++; }
 
-      if (filter === filterNames.all) {
-        return true;
-      }
+      if (!task.isDone) { activeCounter++; }
+
+      if (filter === filterNames.all) { return true; }
 
       return task.isDone === (filterNames.completed === filter);
     });
@@ -165,7 +163,6 @@ class App extends React.Component {
           filterNames={filterNames}
           activeCounter={activeCounter}
           completedCounter={completedCounter}
-          tasks={tasks}
           filter={filter}
           filtredTasks={filtredTasks}
           filterTasks={this.filterTasks}
