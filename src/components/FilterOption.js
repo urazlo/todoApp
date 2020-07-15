@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames'
+import classNames from 'classnames';
 
 class FilterOption extends React.Component {
   handleClick = () => {
@@ -11,8 +11,9 @@ class FilterOption extends React.Component {
 
     const filterClasses = classNames(
       'filter-item', {
-      'filter-selected': filterName === filter,
-    });
+        'filter-selected': filterName === filter,
+      },
+    );
 
     return (
       <div
