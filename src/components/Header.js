@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import theme from 'styles/theme';
 import { TaskType } from 'utils/types';
 import Toggler from './Toggler';
 
@@ -45,31 +46,40 @@ const StyledHeader = styled.div`
   position: relative;
   border-bottom: 2px solid rgba(98, 77, 216, 0.308);
 
-  .header-title {
-    position: absolute;
-    top: -140px;
-    width: 100%;
-    font-size: 100px;
-    font-weight: 100;
-    text-align: center;
+@media (max-width: ${theme.sizes.lg}){  
+  margin-right: 5px;
+  margin-left: 5px; 
+}
+
+.header-title {
+  position: absolute;
+  top: -140px;
+  width: 100%;
+  font-size: 100px;
+  font-weight: 100;
+  text-align: center;
   color: rgba(72, 50, 202, 0.15);
-  }
+}
 
-  .new-todo {
-    margin: 0;
-   font-size: 24px;
-   line-height: 1.4em;
-   box-sizing: border-box;
-   position: relative;
-   width: 85%;
-   padding: 15px;
-   border: none;
-   color: inherit;
-  }
+.new-todo {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.4em;
+  box-sizing: border-box;
+  position: relative;
+  width: 85%;
+  padding: 15px;
+  border: none;
+  color: inherit;
 
-  &:focus{
-    outline: none
-  }
+@media (max-width: ${theme.sizes.m}){  
+  font-size: 21px;
+}  
+
+&:focus{
+  outline: none
+}
+}
 `;
 
 Header.propTypes = {

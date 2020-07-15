@@ -93,9 +93,10 @@ class App extends React.Component {
 
   deleteCompletedTasks = () => {
     const { tasks } = this.state;
-    tasks.filter((task) => !task.isDone);
 
-    this.setState({ tasks }, this.updateLocalStorage);
+    const clonnedTasks = tasks.filter((task) => !task.isDone);
+
+    this.setState({ tasks: clonnedTasks }, this.updateLocalStorage);
   };
 
   filterTasks = (filter) => {

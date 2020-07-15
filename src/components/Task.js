@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import theme from 'styles/theme';
+
 class Task extends React.Component {
   constructor(props) {
     super(props);
@@ -132,16 +134,21 @@ const StyledTask = styled.div`
   padding: 10px;
   margin-top: 2px;
   align-items: center;
+
+@media (max-width: ${theme.sizes.lg}){  
+  padding: 8px;
+  font-size: 20px;
+  margin: 0 5px;
+} 
+
+&:hover .delete-task-btn{
+  opacity: 1;
+  color: #dd2b31;
+}
   
-  &:hover .delete-task-btn{
-    opacity: 1;
-    color: #dd2b31;
-  }
-  
-  &:nth-child(1) {
-    border-top: none;
-  }
-  
+&:nth-child(1) {
+  border-top: none;
+}
 
 .edit {
   margin: 0;
@@ -154,6 +161,27 @@ const StyledTask = styled.div`
   width: 92.8%;
   padding: 6px;
   color: rgba(26, 112, 224, 0.808);
+
+@media (max-width: ${theme.sizes.lg}){  
+  padding: 8px;
+  font-size: 20px;
+  margin: 0 5px;
+  top: -1px;
+  left: 35px;
+  padding: 6px;
+} 
+
+@media (max-width: ${theme.sizes.l}){  
+  width: 90.5%;
+} 
+
+@media (max-width: ${theme.sizes.m}){  
+  width: 89%;
+} 
+
+@media (max-width: ${theme.sizes.xs}){  
+  width: 87%;
+} 
 
   &:focus {
   outline: none;
@@ -187,7 +215,6 @@ const StyledTask = styled.div`
 
 &:focus {
   outline: none
-}
 }
 `;
 

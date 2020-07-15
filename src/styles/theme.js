@@ -1,7 +1,9 @@
 export default {
   sizes: {
-    md: 780,
-    sm: 460,
-    xsm: 400,
+    lg: '550px',
+    md: '480px',
+    l: '425px',
+    m: '375px',
+    xs: '320px',
   },
 };

@@ -41,7 +41,7 @@ class Section extends React.Component {
 }
 
 const StyledSection = styled.div`
-position: relative;
+  position: relative;
 `;
 
 Section.propTypes = {
