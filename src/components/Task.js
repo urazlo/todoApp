@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 class Task extends React.Component {
@@ -85,8 +86,7 @@ class Task extends React.Component {
     const showInput = id === editableTaskId;
 
     return (
-      <div
-        className="todo-list"
+      <StyledTask
         onDoubleClick={this.doubleClickHandler}
         onClick={this.clickHandler}
       >
@@ -118,10 +118,78 @@ class Task extends React.Component {
         >
           X
         </button>
-      </div>
+      </StyledTask>
     );
   }
 }
+
+const StyledTask = styled.div`
+  display: flex;
+  position: relative;
+  font-size: 24px;
+  border-top: 1px solid #ededed;
+  background-color: #fff;
+  padding: 10px;
+  margin-top: 2px;
+  align-items: center;
+  
+  &:hover .delete-task-btn{
+    opacity: 1;
+    color: #dd2b31;
+  }
+  
+  &:nth-child(1) {
+    border-top: none;
+  }
+  
+
+.edit {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.4em;
+  box-sizing: border-box;
+  position: absolute;
+  top: -2px;
+  left: 40px;
+  width: 92.8%;
+  padding: 6px;
+  color: rgba(26, 112, 224, 0.808);
+
+  &:focus {
+  outline: none;
+  border: 2px solid rgba(255, 102, 1, 0.465);
+}
+}
+
+.toggle {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.completed-task {
+  color: #2e2beca9;
+  text-decoration: line-through;
+}
+
+.todo-list-item {
+  margin-left: 10px;
+  flex-grow: 2;
+  padding: 2px;
+}
+
+.delete-task-btn {
+  cursor: pointer;
+  font-size: 22px;
+  margin-right: 10px;
+  opacity: 0;
+}
+
+&:focus {
+  outline: none
+}
+}
+`;
 
 Task.propTypes = {
   id: PropTypes.string.isRequired,

@@ -1,6 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { TaskType } from 'utils/types';
 
@@ -13,16 +13,9 @@ class Toggler extends React.Component {
     } = this.props;
     const isComplete = activeCounter === 0;
 
-    const toggleButtonClasses = classNames(
-      'toggle-all',
-      {
-        hidden: filtredTasks.length === 0,
-      },
-    );
-
     return (
-      <input
-        className={toggleButtonClasses}
+      <StyledInput
+        isHidden={filtredTasks.length === 0}
         type="checkbox"
         onChange={toggleAllTasks}
         checked={isComplete}
@@ -30,6 +23,14 @@ class Toggler extends React.Component {
     );
   }
 }
+
+const StyledInput = styled.input`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: 15px;
+  opacity: ${({ isHidden }) => (isHidden ? 0 : 1)};
+`;
 
 Toggler.propTypes = {
   filtredTasks: PropTypes.arrayOf(TaskType),

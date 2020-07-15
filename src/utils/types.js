@@ -6,4 +6,4 @@ export const TaskType = PropTypes.shape({
   isDone: PropTypes.bool,
 });
 
-export const FilterType = PropTypes.oneOf(['all', 'inProgress', 'completed']);
+export const FilterType = PropTypes.oneOf(['#all', '#active', '#completed']);

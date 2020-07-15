@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { TaskType } from 'utils/types';
 import Task from './Task';
@@ -20,7 +21,7 @@ class Section extends React.Component {
     } = this.props;
 
     return (
-      <div className="main">
+      <StyledSection>
         {filtredTasks.map(({ id, title, isDone }) => (
           <Task
             key={id}
@@ -34,10 +35,14 @@ class Section extends React.Component {
             changeEditableTaskId={this.changeEditableTaskId}
           />
         ))}
-      </div>
+      </StyledSection>
     );
   }
 }
+
+const StyledSection = styled.div`
+position: relative;
+`;
 
 Section.propTypes = {
   filtredTasks: PropTypes.arrayOf(TaskType),
